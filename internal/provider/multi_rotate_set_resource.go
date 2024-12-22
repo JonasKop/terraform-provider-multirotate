@@ -217,11 +217,7 @@ func (r *MultiRotateSet) ModifyPlan(ctx context.Context, req resource.ModifyPlan
 		data.RotationSet = stateData.RotationSet
 	}
 
-	now, err := time.Parse(time.RFC3339, data.Timestamp.ValueString())
-	if err != nil {
-		resp.Diagnostics.AddError("Invalid Current Time", "Unable to parse current time: "+err.Error())
-		return
-	}
+	now := time.Now()
 
 	lr, err := time.Parse(time.RFC3339, data.LastRotate.ValueString())
 	if err != nil {
